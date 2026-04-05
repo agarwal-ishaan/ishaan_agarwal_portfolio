@@ -1,4 +1,5 @@
 import React from 'react';
+import manipalLogo from '../assets/manipal_logo.jpg';
 
 const Education = () => {
   return (
@@ -44,7 +45,7 @@ const Education = () => {
           {/* Manipal */}
           <div className="bg-white/80 backdrop-blur-xl p-10 rounded-[2.5rem] border border-white/60 shadow-lg relative overflow-hidden group">
             <div className="absolute top-0 right-0 p-8 opacity-5 group-hover:opacity-10 transition-opacity">
-              <img src="src/assets/manipal_logo.jpg" alt="Manipal Logo" className="w-24 h-24 object-contain" />
+              <img src={manipalLogo} alt="Manipal Logo" className="w-24 h-24 object-contain" />
             </div>
             <div className="flex flex-col sm:flex-row justify-between items-start mb-6">
               <div>

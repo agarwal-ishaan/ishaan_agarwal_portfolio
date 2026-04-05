@@ -1,4 +1,5 @@
 import React from 'react';
+import profilePic from '../assets/profile_new.jpg';
 
 const About = () => {
   return (
@@ -23,7 +24,7 @@ const About = () => {
             <div className="absolute inset-0 bg-primary-500 rounded-[2.5rem] rotate-3 transition-transform group-hover:rotate-6 duration-500"></div>
             <div className="relative h-full w-full rounded-[2.5rem] overflow-hidden border-2 border-white shadow-xl">
               <img
-                src="src/assets/profile_new.jpg"
+                src={profilePic}
                 alt="Ishaan Agarwal"
                 className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
               />
