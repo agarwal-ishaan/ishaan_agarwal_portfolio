@@ -1,4 +1,6 @@
 import React from 'react';
+import { Reveal, SectionTag } from './editorial';
+import { track } from '../lib/track';
 
 const GithubIcon = ({ size = 15, className = "" }) => (
   <svg
@@ -17,62 +19,79 @@ const GithubIcon = ({ size = 15, className = "" }) => (
   </svg>
 );
 
-
+const headlineStats = [
+  { value: '2–3.4×', label: 'RMSE reduction vs covariate-only adjustment' },
+  { value: '55%', label: 'bias reduction in ATE estimates' },
+  { value: '7', label: 'embedding pipelines benchmarked' },
+  { value: '6,107', label: 'PSID households, waves 2007–2021' },
+];
 
 const Research = () => {
   return (
     <section id="research" className="py-24 relative scroll-mt-20">
-      <div className="">
+      <Reveal>
+        <SectionTag fig="04" label="Research" />
+      </Reveal>
 
-        <div className="flex items-center gap-2 mb-8">
-          <div className="w-8 h-[1.5px] bg-primary-400"></div>
-          <span className="text-[10px] font-bold text-primary-500 uppercase tracking-[0.3em]">Causal Inference Research</span>
-        </div>
+      <Reveal>
+        <div className="bg-surface border border-line border-l-4 border-l-primary-500 p-8 md:p-12 relative overflow-hidden shadow-plate">
 
-        <div className="bg-primary-50 border border-primary-100 rounded-[2.5rem] p-12 relative overflow-hidden shadow-xl">
-          {/* Subtle background icon for research */}
-          <div className="absolute top-10 right-10 opacity-10">
-            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" strokeLinecap="round" strokeLinejoin="round" className="text-primary-800">
-              <path d="M12 2v8" /><path d="m4.93 10.93 1.41 1.41" /><path d="M2 18h2" /><path d="M20 18h2" /><path d="m19.07 10.93-1.41 1.41" /><path d="M22 22H2" /><path d="m8 22 4-10 4 10" /><path d="M16 18a4 4 0 0 0-8 0" />
-            </svg>
+          <p className="font-mono text-[11px] font-bold text-primary-500 uppercase tracking-[0.22em] mb-1.5">
+            Advisor: Prof. Jelena Bradic · Cornell SDS Project Showcase
+          </p>
+          <p className="font-mono text-[11px] text-text-soft uppercase tracking-[0.22em] mb-6">
+            January – May 2026
+          </p>
+
+          <h3 className="font-display uppercase text-3xl md:text-5xl text-text mb-10 max-w-3xl leading-[1.0] tracking-wide">
+            Embedding-Based Causal Adjustment for <span className="text-outline-volt">Latent Confounders</span>
+          </h3>
+
+          {/* Headline results — telemetry tiles */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line mb-10">
+            {headlineStats.map(({ value, label }) => (
+              <div key={label} className="bg-background p-4 hover:bg-surface-flat transition-colors">
+                <p className="font-display text-3xl md:text-4xl text-primary-500 mb-2 leading-none">{value}</p>
+                <p className="font-mono text-[10.5px] leading-snug text-text-soft uppercase tracking-wide">{label}</p>
+              </div>
+            ))}
           </div>
-
-          <p className="text-[10px] font-bold text-primary-600 uppercase tracking-[0.3em] mb-4">🎓 Supervised by Prof. Jelena Bradic · Cornell University</p>
-          <h3 className="text-3xl font-bold text-slate-900 mb-8 max-w-2xl leading-tight">Embedding-Based Adjustment for Household Economics</h3>
 
           <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
             <div className="md:col-span-3">
-              <ul className="list-disc pl-5 text-slate-700 space-y-4 text-sm leading-relaxed font-medium">
-                <li>Investigating whether <strong>LLM embeddings</strong> (MiniLM, DistilBERT) of household histories can serve as valid proxies for <strong>latent confounders</strong> in causal models.</li>
-                <li>Estimating the <strong>Average Treatment Effect (ATE)</strong> of job-related training on earnings using the Panel Study of Income Dynamics (PSID), applying <strong>Double Machine Learning (DML)</strong> with cross-fitting to control for hidden confounders in observational panel data.</li>
+              <ul className="list-disc pl-5 text-text-soft space-y-4 text-[15px] leading-relaxed marker:text-primary-500">
+                <li>Investigated whether <strong className="text-text font-semibold">LLM-derived text embeddings</strong> of household histories can serve as valid proxies for <strong className="text-text font-semibold">latent confounders</strong> (motivation, labor-market attachment) when estimating the causal effect of job training on earnings.</li>
+                <li>Designed a <strong className="text-text font-semibold">semi-synthetic benchmark</strong> on 6,107 PSID households with injected latent confounders, spanning linear-to-threshold outcome regimes and constant-to-nonlinear-heterogeneous treatment effects.</li>
+                <li>Built and benchmarked <strong className="text-text font-semibold">7 embedding pipelines</strong>: TF-IDF+SVD, Sentence-Transformers (MiniLM), trajectory embeddings over panel waves, multi-view fusion, adversarial overlap-aware projection, and contrastive stability-tuned ensembles.</li>
+                <li>Estimated Average Treatment Effects via <strong className="text-text font-semibold">Double Machine Learning with AIPW and cross-fitting</strong>; applied to real PSID data, finding job training has <strong className="text-text font-semibold">no statistically significant effect on household income</strong>.</li>
               </ul>
             </div>
             <div className="md:col-span-2">
-              <p className="text-[10px] font-bold text-primary-600 uppercase tracking-widest mb-4">Focus Areas</p>
+              <p className="hud-label mb-4">Focus Areas</p>
               <div className="flex flex-wrap gap-2">
                 {[
-                  'Causal Inference', 'LLM Embeddings', 'Double ML',
-                  'PSID', 'MiniLM', 'DistilBERT'
+                  'Causal Inference', 'Double ML', 'AIPW', 'LLM Embeddings',
+                  'Sentence-Transformers', 'PSID', 'Semi-Synthetic Benchmarks'
                 ].map(tag => (
-                  <span key={tag} className="bg-white border border-primary-100 text-primary-700 px-3 py-1.5 rounded-lg text-[10px] font-bold uppercase tracking-tight shadow-sm">{tag}</span>
+                  <span key={tag} className="bg-background border border-line text-text px-3 py-1.5 font-mono text-[11px] hover:border-primary-500 transition-colors">{tag}</span>
                 ))}
               </div>
               <a
                 href="https://github.com/Embedding-Based-Causal-Inference/psid_causal_inference/tree/ishaan"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 mt-8 text-sm font-bold text-primary-700 bg-white border border-primary-200 rounded-xl hover:bg-primary-100 hover:border-primary-300 transition-all shadow-sm w-fit group"
+                onClick={() => track('research-code')}
+                className="inline-flex items-center gap-2 px-5 py-3 mt-8 font-mono text-[12px] uppercase tracking-[0.14em] font-bold text-background bg-primary-500 hover:bg-primary-300 transition-colors w-fit"
               >
-                <GithubIcon size={18} className="text-primary-600 group-hover:text-primary-800 transition-colors" />
+                <GithubIcon size={16} />
                 View Code
               </a>
-
             </div>
           </div>
 
         </div>
-      </div>
-    </section >
+      </Reveal>
+    </section>
   );
 };
 

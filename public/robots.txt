@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://agarwal-ishaan.github.io/ishaan_agarwal_portfolio/sitemap.xml

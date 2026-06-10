@@ -1,48 +1,51 @@
 import React from 'react';
 import profilePic from '../assets/profile_new.jpg';
+import { Reveal, SectionTag } from './editorial';
 
 const About = () => {
   return (
-    <section id="about" className="py-24 relative">
-      <div className="">
+    <section id="about" className="py-24 relative scroll-mt-20">
+      <Reveal>
+        <SectionTag fig="01" label="About" />
 
-        {/* Subtitle / Tag */}
-        <div className="flex items-center gap-2 mb-8">
-          <div className="w-8 h-[1.5px] bg-primary-400"></div>
-          <span className="text-[10px] font-bold text-primary-500 uppercase tracking-[0.3em]">About Me</span>
-        </div>
-
-        {/* Title */}
-        <h2 className="text-4xl md:text-6xl font-bold text-text mb-16 tracking-tight leading-[1.1] max-w-3xl">
-          Bridging <span className="text-primary-500">Statistics</span> &amp; Engineering
+        <h2 className="font-display uppercase text-5xl md:text-7xl text-text mb-16 tracking-tight leading-[0.95] max-w-3xl">
+          Bridging <span className="text-outline-volt">statistics</span><br />&amp; engineering
         </h2>
+      </Reveal>
 
-        <div className="flex flex-col md:flex-row items-center md:items-start gap-12">
+      <div className="flex flex-col md:flex-row items-center md:items-start gap-12">
 
-          {/* Photo Block */}
-          <div className="w-full md:w-1/3 aspect-square relative group">
-            <div className="absolute inset-0 bg-primary-500 rounded-[2.5rem] rotate-3 transition-transform group-hover:rotate-6 duration-500"></div>
-            <div className="relative h-full w-full rounded-[2.5rem] overflow-hidden border-2 border-white shadow-xl">
-              <img
-                src={profilePic}
-                alt="Ishaan Agarwal"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-              />
-            </div>
+        {/* Photo Block — volt offset frame */}
+        <Reveal delay={0.1} className="w-full md:w-1/3 aspect-square relative group">
+          <div className="absolute inset-0 border-2 border-primary-500 translate-x-3 translate-y-3 transition-transform group-hover:translate-x-5 group-hover:translate-y-5 duration-500"></div>
+          <div className="relative h-full w-full overflow-hidden border border-line shadow-plate bg-surface">
+            <img
+              src={profilePic}
+              alt="Ishaan Agarwal"
+              className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            />
+            <span className="absolute bottom-2 left-2 font-mono text-[10px] bg-background/85 border border-line px-2 py-0.5 text-primary-500 uppercase tracking-wider">
+              driver · IA-01
+            </span>
           </div>
+        </Reveal>
 
-          {/* Text Block */}
-          <div className="flex-1 space-y-6">
-            <p className="text-xl text-text-soft leading-relaxed">
-              I'm a <strong className="text-text">Data Scientist</strong> and <strong className="text-text">ML Engineer</strong> pursuing my Master's in <span className="text-primary-600 font-semibold">Applied Statistics</span> at <span className="text-primary-600 font-semibold">Cornell University</span>.
-            </p>
+        {/* Text Block */}
+        <Reveal delay={0.2} className="flex-1 space-y-6">
+          <p className="text-xl text-text-soft leading-relaxed">
+            I'm a <strong className="text-text font-semibold">Data Scientist</strong> and <strong className="text-text font-semibold">ML Engineer</strong> with
+            a Master's in <span className="text-primary-500 font-semibold">Applied Statistics</span> from <span className="text-primary-500 font-semibold">Cornell University</span>.
+          </p>
 
-            <p className="text-xl text-text-soft leading-relaxed">
-              At <strong className="text-text">Cornell</strong>, my research focuses on <strong className="text-text">causal inference with LLM embeddings</strong>. Previously, I was part of the <strong className="text-text">UBS Neo</strong> search team at <strong className="text-text">UBS Bank</strong>, building and scaling search infrastructure that powered a cross-asset trading platform for over <span className="text-primary-600 font-bold">1.8 million users</span>.
-            </p>
-          </div>
+          <p className="text-xl text-text-soft leading-relaxed">
+            At <strong className="text-text font-semibold">Cornell</strong>, my research focused on <strong className="text-text font-semibold">causal inference with LLM embeddings</strong> —
+            testing whether text embeddings can stand in for latent confounders. Previously, I was part of
+            the <strong className="text-text font-semibold">UBS Neo</strong> search team at <strong className="text-text font-semibold">UBS Bank</strong>,
+            building and scaling search infrastructure that powered a cross-asset trading platform
+            for over <span className="text-primary-500 font-bold">1.8 million users</span>.
+          </p>
+        </Reveal>
 
-        </div>
       </div>
     </section>
   );

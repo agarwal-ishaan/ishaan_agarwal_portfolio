@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 // ─── Axis dimensions — must match App.jsx padding (pt-12 pl-16) ──────────────
 const LEFT_W = 64;
 const TOP_H = 48;
-const TEAL = '#2dd4bf';
+const TEAL = '#ccff00';
 const TRAIL_POINTS = 200;
 const SMOOTH = 0.055;
 const HIT_RADIUS = 70;
@@ -139,8 +139,8 @@ const MilestoneTrace = () => {
 
       ctx.clearRect(0, 0, w, h);
 
-      // Grid
-      ctx.strokeStyle = 'rgba(45,212,191,0.05)';
+      // Grid — faint radar lines on carbon
+      ctx.strokeStyle = 'rgba(242,245,247,0.045)';
       ctx.lineWidth = 1;
       for (let x = LEFT_W; x <= w; x += GRID) {
         ctx.beginPath(); ctx.moveTo(x, TOP_H); ctx.lineTo(x, h); ctx.stroke();
@@ -229,8 +229,8 @@ const MilestoneTrace = () => {
 
         {/* ── Y-AXIS (LEFT) ── */}
         <div
-          className="absolute top-0 bottom-0 left-0 border-r-[1.5px] border-slate-300/90"
-          style={{ width: LEFT_W, background: 'rgba(250,250,250,0.5)' }}
+          className="absolute top-0 bottom-0 left-0 border-r-[1.5px] border-line"
+          style={{ width: LEFT_W, background: 'rgba(11,15,20,0.6)' }}
         >
           {/* 1. The Static Year Labels */}
           {Y_AXIS_YEARS.map((year) => {
@@ -289,79 +289,34 @@ const MilestoneTrace = () => {
                   fontSize: 9,
                   fontFamily: 'monospace',
                   fontWeight: 700,
-                  color: '#2dd4bf', // Teal text
-                  background: '#ffffff',
-                  border: '1px solid #2dd4bf66',
+                  color: TEAL,
+                  background: '#0b0f14',
+                  border: `1px solid ${TEAL}66`,
                   borderRadius: 4,
                   padding: '1px 6px',
                   marginRight: 2,
-                  boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
+                  boxShadow: '0 1px 4px rgba(0,0,0,0.4)',
                 }}
               >
                 {cursorYear}
               </span>
               {/* Small horizontal tick pointing at the line */}
-              <div style={{ width: 5, height: 1.5, background: '#2dd4bf', opacity: 0.6 }} />
+              <div style={{ width: 5, height: 1.5, background: TEAL, opacity: 0.6 }} />
             </div>
           )}
         </div>
       </div>
 
-      {/* ── GLOBAL NAVIGATION (FIXED OVERLAY) ────────────────────────── */}
-      <div
-        className="fixed top-0 left-0 right-0 h-14 z-[100] border-b border-slate-200/80 backdrop-blur-md bg-white/90 transition-all duration-300"
-      >
-        <div className="w-full px-[150px] h-full flex items-center justify-between">
-          {/* IA initials logo — home button */}
-          <button
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="flex items-center gap-3 border-none bg-transparent cursor-pointer p-0 outline-none group"
-          >
-            <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-slate-900 text-white text-[10px] font-mono font-black tracking-widest shadow-md transition-transform group-hover:scale-105 active:scale-95">
-              IA
-            </span>
-          </button>
-
-          <nav className="flex items-center gap-8">
-            {[
-              { label: 'About', href: '#about' },
-              { label: 'Experience', href: '#experience' },
-              { label: 'Education', href: '#education' },
-              { label: 'Research', href: '#research' },
-              { label: 'Projects', href: '#projects' },
-              { label: 'Skills', href: '#skills' },
-              { label: 'Contact', href: '#contact' },
-            ].map((item) => (
-              <button
-                key={item.label}
-                onClick={() => {
-                  const el = document.querySelector(item.href);
-                  if (el) {
-                    const offset = 100;
-                    const bodyRect = document.body.getBoundingClientRect().top;
-                    const elementRect = el.getBoundingClientRect().top;
-                    const elementPosition = elementRect - bodyRect;
-                    const offsetPosition = elementPosition - offset;
-                    window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
-                  }
-                }}
-                className="text-[10px] font-bold text-slate-500 hover:text-primary-600 transition-all uppercase tracking-[0.25em] border-none bg-transparent cursor-pointer outline-none"
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
-        </div>
-
-        {/* Live Scroll Phase badge */}
+      {/* ── Live Scroll Phase badge (nav bar itself lives in Navbar.jsx) ── */}
+      <div className="fixed top-0 left-0 right-0 h-16 z-[60] pointer-events-none select-none">
         {smooth.x > LEFT_W && (
-          <div className="absolute bottom-0 flex flex-col items-center pointer-events-none" style={{ left: smooth.x, transform: 'translateX(-50%)' }}>
+          <div className="absolute bottom-0 flex flex-col items-center" style={{ left: smooth.x, transform: 'translateX(-50%)' }}>
             <span style={{
               fontSize: 9, fontFamily: 'monospace', fontWeight: 700,
-              color: TEAL, background: '#ffffff',
+              color: TEAL, background: '#0b0f14',
               border: `1px solid ${TEAL}66`, borderRadius: 4,
               padding: '1px 6px', marginBottom: 2,
-              boxShadow: '0 1px 4px rgba(0,0,0,0.08)',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.4)',
             }}>{(scrollPct * 100).toFixed(0)}%</span>
             <div style={{ width: 1, height: 5, background: TEAL, opacity: 0.6 }} />
           </div>
@@ -413,12 +368,12 @@ const MilestoneTrace = () => {
                   <div style={{
                     position: 'absolute', top: 14, left: '50%',
                     transform: 'translateX(-50%)',
-                    background: 'rgba(255,255,255,0.94)',
+                    background: 'rgba(11,15,20,0.92)',
                     border: `1px solid ${m.color}55`,
                     borderRadius: 5,
                     padding: '2px 8px',
                     whiteSpace: 'nowrap',
-                    boxShadow: '0 1px 6px rgba(0,0,0,0.07)',
+                    boxShadow: '0 1px 6px rgba(0,0,0,0.4)',
                   }}>
                     <span style={{ fontFamily: 'monospace', fontSize: 9, fontWeight: 700, color: m.color, letterSpacing: '0.04em' }}>
                       {m.label}

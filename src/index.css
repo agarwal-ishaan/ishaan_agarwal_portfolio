@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+/* Anton + Archivo + JetBrains Mono are loaded via <link> in index.html */
 
 @tailwind base;
 @tailwind components;
@@ -8,41 +8,70 @@
   body {
     @apply bg-background text-text font-sans antialiased overflow-x-hidden w-full;
   }
+
+  ::selection {
+    background: #ccff00;
+    color: #0b0f14;
+  }
 }
 
 @layer utilities {
   .glass-card {
-    @apply bg-surface/70 backdrop-blur-md border border-white/40 shadow-glass;
+    @apply bg-surface/70 backdrop-blur-md border border-line shadow-glass;
   }
 
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-600 to-accent-500;
+  /* Hollow display type — like race livery numbers */
+  .text-outline {
+    -webkit-text-stroke: 2px rgba(242, 245, 247, 0.9);
+    color: transparent;
   }
 
-  .mesh-bg {
-    background-image:
-      radial-gradient(at 40% 20%, hsla(180, 100%, 74%, 0.15) 0px, transparent 50%),
-      radial-gradient(at 80% 0%, hsla(189, 100%, 56%, 0.15) 0px, transparent 50%),
-      radial-gradient(at 0% 50%, hsla(210, 100%, 82%, 0.15) 0px, transparent 50%),
-      radial-gradient(at 80% 50%, hsla(250, 100%, 85%, 0.15) 0px, transparent 50%);
+  .text-outline-volt {
+    -webkit-text-stroke: 2px #ccff00;
+    color: transparent;
+  }
+
+  /* Telemetry label */
+  .hud-label {
+    @apply font-mono text-[11px] tracking-[0.22em] uppercase text-text-soft;
+  }
+
+  .rule {
+    @apply border-t border-line;
+  }
+
+  /* Scrolling marquee strip */
+  .marquee-track {
+    display: flex;
+    width: max-content;
+    animation: marquee 22s linear infinite;
+  }
+
+  .marquee-track:hover {
+    animation-play-state: paused;
   }
 }
 
-/* Custom scrollbar for data tables to look cleaner */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+/* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: #0b0f14;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #cbd5e1;
+  background: #232c38;
   border-radius: 3px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #94a3b8;
+  background: #ccff00;
 }
