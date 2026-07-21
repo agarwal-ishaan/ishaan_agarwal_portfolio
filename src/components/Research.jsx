@@ -1,6 +1,10 @@
 import React from 'react';
+import { FileText, Presentation } from 'lucide-react';
 import { Reveal, SectionTag } from './editorial';
 import { track } from '../lib/track';
+
+const REPORT_HREF = `${import.meta.env.BASE_URL}PSID-Causal-Inference-Report.pdf`;
+const POSTER_HREF = `${import.meta.env.BASE_URL}PSID-Causal-Inference-Poster.pdf`;
 
 const GithubIcon = ({ size = 15, className = "" }) => (
   <svg
@@ -76,16 +80,40 @@ const Research = () => {
                   <span key={tag} className="bg-background border border-line text-text px-3 py-1.5 font-mono text-[11px] hover:border-primary-500 transition-colors">{tag}</span>
                 ))}
               </div>
-              <a
-                href="https://github.com/Embedding-Based-Causal-Inference/psid_causal_inference/tree/ishaan"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => track('research-code')}
-                className="inline-flex items-center gap-2 px-5 py-3 mt-8 font-mono text-[12px] uppercase tracking-[0.14em] font-bold text-background bg-primary-500 hover:bg-primary-300 transition-colors w-fit"
-              >
-                <GithubIcon size={16} />
-                View Code
-              </a>
+              <div className="flex flex-wrap items-center gap-3 mt-8">
+                <a
+                  href="https://github.com/Embedding-Based-Causal-Inference/psid_causal_inference/tree/ishaan"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => track('research-code')}
+                  className="inline-flex items-center gap-2 px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] font-bold text-background bg-primary-500 hover:bg-primary-300 transition-colors w-fit"
+                >
+                  <GithubIcon size={16} />
+                  View Code
+                </a>
+
+                <a
+                  href={REPORT_HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => track('research-report')}
+                  className="inline-flex items-center gap-2 px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors w-fit"
+                >
+                  <FileText size={16} />
+                  Report
+                </a>
+
+                <a
+                  href={POSTER_HREF}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  onClick={() => track('research-poster')}
+                  className="inline-flex items-center gap-2 px-5 py-3 font-mono text-[12px] uppercase tracking-[0.14em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors w-fit"
+                >
+                  <Presentation size={16} />
+                  Poster
+                </a>
+              </div>
             </div>
           </div>
 
