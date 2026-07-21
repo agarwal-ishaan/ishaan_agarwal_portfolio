@@ -84,6 +84,7 @@ const projectsData = [
     description: 'Estimated sparse precision matrices from breast cancer expression data (p ≫ n) by implementing CLIME and Graphical Lasso from scratch to reconstruct gene regulatory networks.',
     tags: ['Precision Matrix Estimation', 'CLIME', 'Graphical Lasso', 'LDA', 'SCAD'],
     icon: <Server className="text-accent-400" size={24} />,
+    reportUrl: `${import.meta.env.BASE_URL}Gene-Network-Report.pdf`,
     details: {
       problem: 'Breast cancer gene expression data is notoriously high-dimensional (p ≫ n). How do you reliably estimate the covariance structure and reconstruct meaningful gene regulatory networks?',
       dataset: 'High-dimensional breast cancer expression datasets with far more features (genes) than observations, a classic sparse estimation challenge.',
