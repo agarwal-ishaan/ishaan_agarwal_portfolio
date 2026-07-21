@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layout, Server, ArrowUpRight, X, Activity, Database, KeySquare, TrendingUp, DollarSign, MessageSquare, Workflow, Globe, FileText } from 'lucide-react';
+import { Layout, Server, ArrowUpRight, X, Activity, Database, KeySquare, TrendingUp, DollarSign, MessageSquare, Workflow, Globe, FileText, Presentation } from 'lucide-react';
 import { Reveal, SectionTag } from './editorial';
 import { track } from '../lib/track';
 
@@ -85,6 +85,7 @@ const projectsData = [
     tags: ['Precision Matrix Estimation', 'CLIME', 'Graphical Lasso', 'LDA', 'SCAD'],
     icon: <Server className="text-accent-400" size={24} />,
     reportUrl: `${import.meta.env.BASE_URL}Gene-Network-Report.pdf`,
+    presentationUrl: `${import.meta.env.BASE_URL}Gene-Network-Presentation.pdf`,
     details: {
       problem: 'Breast cancer gene expression data is notoriously high-dimensional (p ≫ n). How do you reliably estimate the covariance structure and reconstruct meaningful gene regulatory networks?',
       dataset: 'High-dimensional breast cancer expression datasets with far more features (genes) than observations, a classic sparse estimation challenge.',
@@ -196,7 +197,7 @@ const Projects = () => {
                   />
                 </div>
 
-                {(project.githubUrl || project.liveUrl || project.reportUrl) && (
+                {(project.githubUrl || project.liveUrl || project.reportUrl || project.presentationUrl) && (
                   <div className="flex items-center gap-3 flex-wrap">
                     {project.githubUrl && (
                       <a
@@ -231,6 +232,18 @@ const Projects = () => {
                         className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors relative z-10"
                       >
                         <FileText size={15} /> Report
+                      </a>
+                    )}
+
+                    {project.presentationUrl && (
+                      <a
+                        href={project.presentationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => { e.stopPropagation(); track(`presentation-${project.id}`); }}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors relative z-10"
+                      >
+                        <Presentation size={15} /> Slides
                       </a>
                     )}
                   </div>
@@ -289,7 +302,7 @@ const Projects = () => {
                   {selectedProject.description}
                 </motion.p>
 
-                {(selectedProject.githubUrl || selectedProject.liveUrl || selectedProject.reportUrl) && (
+                {(selectedProject.githubUrl || selectedProject.liveUrl || selectedProject.reportUrl || selectedProject.presentationUrl) && (
                   <div className="flex flex-wrap items-center gap-3">
                     {selectedProject.liveUrl && (
                       <a
@@ -322,6 +335,17 @@ const Projects = () => {
                         className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors"
                       >
                         <FileText size={15} /> Report
+                      </a>
+                    )}
+                    {selectedProject.presentationUrl && (
+                      <a
+                        href={selectedProject.presentationUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => track(`presentation-${selectedProject.id}`)}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors"
+                      >
+                        <Presentation size={15} /> Slides
                       </a>
                     )}
                   </div>
