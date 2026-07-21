@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Layout, Server, ArrowUpRight, X, Activity, Database, KeySquare, TrendingUp, DollarSign, MessageSquare, Workflow, Globe } from 'lucide-react';
+import { Layout, Server, ArrowUpRight, X, Activity, Database, KeySquare, TrendingUp, DollarSign, MessageSquare, Workflow, Globe, FileText } from 'lucide-react';
 import { Reveal, SectionTag } from './editorial';
 import { track } from '../lib/track';
 
@@ -70,6 +70,7 @@ const projectsData = [
     tags: ['PyTorch', 'ResNet', 'ViT', 'MNIST-Sign-Language'],
     icon: <Layout className="text-primary-500" size={24} />,
     githubUrl: 'https://github.com/agarwal-ishaan/InductiveVision',
+    reportUrl: `${import.meta.env.BASE_URL}CNN-vs-ViT-Report.pdf`,
     details: {
       problem: 'How much does spatial inductive bias (baked into CNNs) help when training data is scarce? Vision Transformers learn everything from scratch, but at what data cost?',
       dataset: 'MNIST Sign Language dataset, evaluated across progressive splits from 1% to 100% with and without data augmentation to measure data hunger of each architecture.',
@@ -194,7 +195,7 @@ const Projects = () => {
                   />
                 </div>
 
-                {(project.githubUrl || project.liveUrl) && (
+                {(project.githubUrl || project.liveUrl || project.reportUrl) && (
                   <div className="flex items-center gap-3 flex-wrap">
                     {project.githubUrl && (
                       <a
@@ -217,6 +218,18 @@ const Projects = () => {
                         className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors relative z-10"
                       >
                         <Globe size={15} /> Live
+                      </a>
+                    )}
+
+                    {project.reportUrl && (
+                      <a
+                        href={project.reportUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => { e.stopPropagation(); track(`report-${project.id}`); }}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors relative z-10"
+                      >
+                        <FileText size={15} /> Report
                       </a>
                     )}
                   </div>
@@ -275,7 +288,7 @@ const Projects = () => {
                   {selectedProject.description}
                 </motion.p>
 
-                {(selectedProject.githubUrl || selectedProject.liveUrl) && (
+                {(selectedProject.githubUrl || selectedProject.liveUrl || selectedProject.reportUrl) && (
                   <div className="flex flex-wrap items-center gap-3">
                     {selectedProject.liveUrl && (
                       <a
@@ -297,6 +310,17 @@ const Projects = () => {
                         className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors"
                       >
                         <GithubIcon size={15} /> View Code
+                      </a>
+                    )}
+                    {selectedProject.reportUrl && (
+                      <a
+                        href={selectedProject.reportUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => track(`report-${selectedProject.id}`)}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors"
+                      >
+                        <FileText size={15} /> Report
                       </a>
                     )}
                   </div>
