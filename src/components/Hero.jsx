@@ -96,7 +96,7 @@ const Hero = () => {
 
         <motion.p {...fadeUp} transition={{ duration: 0.6, delay: 0.45 }}
           className="text-lg md:text-xl text-text-soft mb-12 max-w-2xl leading-relaxed">
-          Building ML systems that don't just perform well in notebooks — they scale
+          Building ML systems that don't just perform well in notebooks, they scale
           in the real world. Cornell MPS, Applied Statistics '26 · Previously at UBS Bank.
         </motion.p>
 

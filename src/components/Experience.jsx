@@ -19,7 +19,7 @@ const Experience = () => {
             <div className="relative pl-8 border-l-2 border-primary-500/50">
               <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-primary-500 border-2 border-surface shadow-volt"></div>
               <div className="flex flex-col sm:flex-row justify-between items-start mb-1.5">
-                <h3 className="font-display uppercase text-2xl md:text-3xl text-text tracking-wide">Software Engineer — Data &amp; Search Infrastructure</h3>
+                <h3 className="font-display uppercase text-2xl md:text-3xl text-text tracking-wide">Software Engineer, Data &amp; Search Infrastructure</h3>
                 <span className="font-mono text-primary-500 font-bold text-xs mt-2 shrink-0 uppercase tracking-wider">Jan 2023 – Jul 2025</span>
               </div>
               <p className="text-text-soft mb-5 font-mono text-[13px] uppercase tracking-wider">UBS Bank · Internship → Full-Time</p>
@@ -29,19 +29,6 @@ const Experience = () => {
                 <li>Led end-to-end migration of a business-critical search service to a cloud-native AKS architecture, replacing service-level auth with platform-wide verification; shipped with <strong className="text-text font-semibold">zero production incidents</strong>.</li>
                 <li>Implemented region-based data segmentation for the FX search pipeline by extending the Azure Search schema and executing a full reindex of <strong className="text-text font-semibold">2.4M+ financial instrument records</strong>.</li>
                 <li>Migrated core services from 29West to gRPC and to Azure Cache for Redis, enabling AKS deployment and maintaining a real-time data-quality monitoring pipeline across upstream sources.</li>
-              </ul>
-            </div>
-
-            {/* Cogoport */}
-            <div className="relative pl-8 border-l-2 border-line">
-              <div className="absolute -left-[9px] top-1 w-4 h-4 rounded-full bg-surface-flat border-2 border-surface"></div>
-              <div className="flex flex-col sm:flex-row justify-between items-start mb-1.5">
-                <h3 className="font-display uppercase text-2xl md:text-3xl text-text tracking-wide">Data Science Intern</h3>
-                <span className="font-mono text-primary-500 font-bold text-xs mt-2 shrink-0 uppercase tracking-wider">Jun 2021 – Jul 2021</span>
-              </div>
-              <p className="text-text-soft mb-5 font-mono text-[13px] uppercase tracking-wider">Cogoport · India</p>
-              <ul className="list-disc pl-5 text-text-soft space-y-3.5 text-[16.5px] leading-relaxed marker:text-primary-500">
-                <li>Developed <strong className="text-text font-semibold">LSTM models</strong> for freight rate forecasting, achieving <strong className="text-text font-semibold">RMSE of ~$1,200</strong> against an average freight price of ~$7,000; engineered geospatial features by clustering shipping ports, outperforming baseline ARIMA models.</li>
               </ul>
             </div>
           </div>

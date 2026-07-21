@@ -38,7 +38,7 @@ const About = () => {
           </p>
 
           <p className="text-xl text-text-soft leading-relaxed">
-            At <strong className="text-text font-semibold">Cornell</strong>, my research focused on <strong className="text-text font-semibold">causal inference with LLM embeddings</strong> —
+            At <strong className="text-text font-semibold">Cornell</strong>, my research focused on <strong className="text-text font-semibold">causal inference with LLM embeddings</strong>,
             testing whether text embeddings can stand in for latent confounders. Previously, I was part of
             the <strong className="text-text font-semibold">UBS Neo</strong> search team at <strong className="text-text font-semibold">UBS Bank</strong>,
             building and scaling search infrastructure that powered a cross-asset trading platform

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { LineChart, Layout, Server, ArrowUpRight, X, Activity, Database, KeySquare, TrendingUp } from 'lucide-react';
+import { Layout, Server, ArrowUpRight, X, Activity, Database, KeySquare, TrendingUp, DollarSign, MessageSquare, Workflow, Globe } from 'lucide-react';
 import { Reveal, SectionTag } from './editorial';
 import { track } from '../lib/track';
 
@@ -23,43 +23,84 @@ const GithubIcon = ({ size = 15, className = "" }) => (
 
 const projectsData = [
   {
-    id: 'project-1',
+    id: 'caliper',
+    title: 'Caliper: The Meter for Your AI Bill',
+    description: 'Connects a read-only key to Anthropic and OpenAI and shows exactly where token spend is wasted, in dollars, ranked, with the fix attached.',
+    tags: ['Next.js', 'FastAPI', 'PostgreSQL', 'Docker', 'Anthropic API', 'OpenAI API'],
+    icon: <DollarSign className="text-primary-500" size={24} />,
+    githubUrl: 'https://github.com/agarwal-ishaan/caliper',
+    liveUrl: 'http://136.65.85.105:3000/',
+    details: {
+      problem: 'Teams running AI features rarely have a clear answer to where their token spend is actually going or how much of it is waste. Provider dashboards show totals, not actionable leaks.',
+      dataset: 'Reads the read-only usage and cost reporting APIs Anthropic and OpenAI already expose, no prompts, completions, or customer data ever touched, pulling 90 days of usage history per connected organization.',
+      architecture: 'Next.js (App Router) frontend with a FastAPI backend split into four layers: per-provider connectors, a normalizing ingestor, a pure-function analysis engine, and a thin API layer. Postgres for storage, Docker Compose for deployment, encrypted-at-rest API keys, and httpOnly session cookies with CSRF protection.',
+      impact: 'Surfaces six dollar-quantified finding types, underused prompt caches, output-heavy calls, Batch-API candidates, premium-tier overuse, top spend drivers, and week-over-week spend spikes, ranked by recoverable monthly spend, with a full pivot-table breakdown and CSV export.'
+    }
+  },
+  {
+    id: 'rag-console',
+    title: 'From-Scratch RAG System with Eval & Observability Console',
+    description: 'A full-stack RAG system with cited answers and an LLM-as-judge evaluation framework, reaching 83% agreement with hand-labeled quality judgments.',
+    tags: ['FastAPI', 'ChromaDB', 'Ollama', 'React', 'TypeScript'],
+    icon: <MessageSquare className="text-accent-400" size={24} />,
+    details: {
+      problem: 'RAG pipelines fail silently. A wrong answer could be a retrieval miss, a generation error, or a stale config, with no way to tell which from the outside.',
+      dataset: 'A locally indexed corpus in ChromaDB, queried against local LLMs served via Ollama, with every query traced end-to-end.',
+      architecture: 'Built from scratch: a FastAPI backend with a config-versioned retrieval and generation pipeline, ChromaDB for vector storage, Ollama for local inference, and a React/TypeScript observability console. 135 automated tests across backend and frontend, developed via TDD.',
+      impact: 'An LLM-as-judge framework scores context relevance, faithfulness, and answer relevance per query, reaching 83% agreement with hand-labeled examples, with automated failure attribution across retrieval vs. generation and per-query tracing (chunks, similarity scores, prompts, latency, token counts) tagged to a config-version hash, making regressions attributable to specific pipeline changes.'
+    }
+  },
+  {
+    id: 'github-archive-etl',
+    title: 'GitHub Archive Dual-Path ETL Pipeline',
+    description: 'A streaming and batch ETL pipeline over GitHub Archive event data, ingesting 267,000+ events per hour with YAML-driven dynamic DAG generation in Airflow.',
+    tags: ['PySpark', 'Airflow', 'Kafka', 'PostgreSQL'],
+    icon: <Workflow className="text-primary-400" size={24} />,
+    details: {
+      problem: 'GitHub Archive emits a high-volume, continuous stream of event data. Handling it well needs both low-latency processing and reliable historical backfills, without duplicating pipeline logic.',
+      dataset: 'The GitHub Archive event stream, ingesting 267,000+ events per hour and curating 112,000+ rows per run into PostgreSQL.',
+      architecture: 'A dual-path (streaming and batch) pipeline built with PySpark and Airflow, with YAML-driven dynamic DAG generation to parameterize pipeline configs without code changes, and built-in data-quality gates validating schema and completeness before load.',
+      impact: 'Processes 267,000+ events per hour end-to-end with automated schema and completeness validation before load, letting pipeline configs change without touching code.'
+    }
+  },
+  {
+    id: 'vision-inductive-bias',
     title: 'Inductive Bias & Sample Efficiency: CNNs vs Vision Transformers',
     description: 'Benchmarked a lightweight ResNet against a Minimal ViT on progressive data splits (1%–100%), quantifying a ~20× data-efficiency gap from spatial inductive bias.',
     tags: ['PyTorch', 'ResNet', 'ViT', 'MNIST-Sign-Language'],
     icon: <Layout className="text-primary-500" size={24} />,
     githubUrl: 'https://github.com/agarwal-ishaan/InductiveVision',
     details: {
-      problem: 'How much does spatial inductive bias (baked into CNNs) help when training data is scarce? Vision Transformers learn everything from scratch — but at what data cost?',
+      problem: 'How much does spatial inductive bias (baked into CNNs) help when training data is scarce? Vision Transformers learn everything from scratch, but at what data cost?',
       dataset: 'MNIST Sign Language dataset, evaluated across progressive splits from 1% to 100% with and without data augmentation to measure data hunger of each architecture.',
       architecture: 'Custom lightweight ResNet benchmarked against a Minimal Vision Transformer (ViT). Both trained from scratch under identical hyperparameter regimes per data split.',
-      impact: 'CNN reached 84.55% test accuracy with only 5% of training data, while the ViT required the full dataset plus augmentation to reach its 95.66% peak — a ~20× data-efficiency gap demonstrating the value of inductive bias in low-data regimes.'
+      impact: 'CNN reached 84.55% test accuracy with only 5% of training data, while the ViT required the full dataset plus augmentation to reach its 95.66% peak, a ~20× data-efficiency gap demonstrating the value of inductive bias in low-data regimes.'
     }
   },
   {
-    id: 'project-2',
+    id: 'gene-network',
     title: 'High-Dimensional Gene Network Analysis',
     description: 'Estimated sparse precision matrices from breast cancer expression data (p ≫ n) by implementing CLIME and Graphical Lasso from scratch to reconstruct gene regulatory networks.',
     tags: ['Precision Matrix Estimation', 'CLIME', 'Graphical Lasso', 'LDA', 'SCAD'],
     icon: <Server className="text-accent-400" size={24} />,
     details: {
       problem: 'Breast cancer gene expression data is notoriously high-dimensional (p ≫ n). How do you reliably estimate the covariance structure and reconstruct meaningful gene regulatory networks?',
-      dataset: 'High-dimensional breast cancer expression datasets with far more features (genes) than observations — a classic sparse estimation challenge.',
+      dataset: 'High-dimensional breast cancer expression datasets with far more features (genes) than observations, a classic sparse estimation challenge.',
       architecture: 'Implemented Constrained L1-Minimization (CLIME) and Graphical Lasso from scratch to estimate sparse precision matrices. Used Linear Discriminant Analysis (LDA) for downstream clinical response prediction.',
       impact: 'Successfully reconstructed gene regulatory networks and benchmarked convergence rates of convex (CLIME) vs. non-convex (SCAD) penalization methods, yielding interpretable biological insights.'
     }
   },
   {
-    id: 'project-3',
-    title: 'RAG Pipeline for Financial Document Tagging',
-    description: 'Built a Retrieval-Augmented Generation pipeline at UBS to automate the tagging of 10,000+ financial documents, reducing manual effort by 60%. Ranked Top 5 in UBS AI Quest Competition.',
-    tags: ['Python', 'LLMs', 'RAG', 'Azure'],
-    icon: <LineChart className="text-primary-400" size={24} />,
+    id: 'freight-lstm',
+    title: 'Freight Rate Forecasting with LSTMs',
+    description: 'Built LSTM models for freight rate forecasting at Cogoport, reaching an RMSE of ~$1,200 against a ~$7,000 average freight price by engineering geospatial features from clustered shipping ports.',
+    tags: ['LSTM', 'Time Series', 'ARIMA', 'Geospatial Clustering'],
+    icon: <TrendingUp className="text-primary-400" size={24} />,
     details: {
-      problem: 'UBS needed to tag over 10,000 financial documents manually — a slow, error-prone process with significant compliance risk and resource cost.',
-      dataset: 'Proprietary corpus of 10,000+ internal financial documents spanning multiple asset classes and regulatory categories.',
-      architecture: 'Built a RAG pipeline that generates candidate tags by retrieving semantically similar document context and prompting an LLM for classification. Deployed on Azure infrastructure with automated quality gates.',
-      impact: 'Reduced manual tagging effort by 60%, accelerating document processing pipelines. Solution ranked in the Top 5 at the competitive internal UBS AI Quest competition.'
+      problem: 'Freight rates are volatile and highly route-dependent. Accurate forecasts are needed to price shipments competitively without absorbing unexpected cost swings.',
+      dataset: 'Historical freight pricing data across shipping routes and ports at Cogoport (India), covering a range of trade lanes.',
+      architecture: 'LSTM sequence models for freight rate forecasting, with engineered geospatial features built by clustering shipping ports to capture route-level structure.',
+      impact: 'Achieved an RMSE of ~$1,200 against an average freight price of ~$7,000, outperforming baseline ARIMA models.'
     }
   }
 ];
@@ -165,6 +206,18 @@ const Projects = () => {
                   </a>
                 )}
 
+                {project.liveUrl && (
+                  <a
+                    href={project.liveUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={(e) => { e.stopPropagation(); track(`live-${project.id}`); }}
+                    className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors relative z-10"
+                  >
+                    <Globe size={15} /> Live
+                  </a>
+                )}
+
               </div>
             </motion.div>
           </Reveal>
@@ -214,9 +267,36 @@ const Projects = () => {
                   </div>
                 </div>
 
-                <motion.p layoutId={`desc-${selectedProject.id}`} className="text-xl text-text-soft leading-relaxed max-w-3xl">
+                <motion.p layoutId={`desc-${selectedProject.id}`} className="text-xl text-text-soft leading-relaxed max-w-3xl mb-6">
                   {selectedProject.description}
                 </motion.p>
+
+                {(selectedProject.githubUrl || selectedProject.liveUrl) && (
+                  <div className="flex flex-wrap items-center gap-3">
+                    {selectedProject.liveUrl && (
+                      <a
+                        href={selectedProject.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => track(`live-${selectedProject.id}`)}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] font-bold text-background bg-primary-500 hover:bg-primary-300 transition-colors"
+                      >
+                        <Globe size={15} /> Live Site
+                      </a>
+                    )}
+                    {selectedProject.githubUrl && (
+                      <a
+                        href={selectedProject.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={() => track(`code-${selectedProject.id}`)}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors"
+                      >
+                        <GithubIcon size={15} /> View Code
+                      </a>
+                    )}
+                  </div>
+                )}
               </div>
 
               {/* Body Area - Case Study Details */}
