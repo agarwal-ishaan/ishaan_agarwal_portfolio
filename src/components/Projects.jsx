@@ -184,9 +184,9 @@ const Projects = () => {
                 ))}
               </motion.div>
 
-              <div className="flex items-center gap-3 w-full mt-auto pt-4 border-t border-line">
+              <div className="flex flex-col gap-3 w-full mt-auto pt-4 border-t border-line">
 
-                <div className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] font-bold text-background bg-primary-500 hover:bg-primary-300 transition-colors group/btn cursor-pointer">
+                <div className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] font-bold text-background bg-primary-500 hover:bg-primary-300 transition-colors group/btn cursor-pointer w-fit">
                   View
                   <ArrowUpRight
                     size={15}
@@ -194,28 +194,32 @@ const Projects = () => {
                   />
                 </div>
 
-                {project.githubUrl && (
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => { e.stopPropagation(); track(`code-${project.id}`); }}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors relative z-10"
-                  >
-                    <GithubIcon size={15} /> Code
-                  </a>
-                )}
+                {(project.githubUrl || project.liveUrl) && (
+                  <div className="flex items-center gap-3 flex-wrap">
+                    {project.githubUrl && (
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => { e.stopPropagation(); track(`code-${project.id}`); }}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors relative z-10"
+                      >
+                        <GithubIcon size={15} /> Code
+                      </a>
+                    )}
 
-                {project.liveUrl && (
-                  <a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={(e) => { e.stopPropagation(); track(`live-${project.id}`); }}
-                    className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors relative z-10"
-                  >
-                    <Globe size={15} /> Live
-                  </a>
+                    {project.liveUrl && (
+                      <a
+                        href={project.liveUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={(e) => { e.stopPropagation(); track(`live-${project.id}`); }}
+                        className="inline-flex items-center gap-1.5 px-4 py-2 font-mono text-[12px] uppercase tracking-[0.12em] text-text-soft bg-surface border border-line hover:border-primary-500 hover:text-primary-500 transition-colors relative z-10"
+                      >
+                        <Globe size={15} /> Live
+                      </a>
+                    )}
+                  </div>
                 )}
 
               </div>
